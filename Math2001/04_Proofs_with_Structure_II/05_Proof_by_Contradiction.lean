@@ -18,7 +18,7 @@ example : ¬ (∀ x : ℝ, x ^ 2 ≥ x) := by
 example : ¬ 3 ∣ 13 := by
   intro H
   obtain ⟨k, hk⟩ := H
-  obtain h4 | h5 := le_or_gt k 4
+  obtain h4 | h5 := le_or_succ_le k 4
   · have h :=
     calc 13 = 3 * k := hk
       _ ≤ 3 * 4 := by rel [h4]

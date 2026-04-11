@@ -49,7 +49,7 @@ example : ¬(∀ n : ℤ, ∃ m : ℤ, n ^ 2 < m ∧ m < (n + 1) ^ 2)
 example : ¬ (∃ n : ℕ, n ^ 2 = 2) := by
   push_neg
   intro n
-  have hn := le_or_gt n 1
+  have hn := le_or_succ_le n 1
   obtain hn | hn := hn
   · apply ne_of_lt
     calc
