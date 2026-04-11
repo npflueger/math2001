@@ -46,7 +46,7 @@ example {n : ℤ} (hn : Even n) : Odd (n ^ 2 + 2 * n - 5) := by
   sorry
 
 example (n : ℤ) : Even (n ^ 2 + n + 4) := by
-  obtain hn | hn := Int.even_or_odd n
+  obtain hn | hn := Int.even_or_odd_lib n
   · obtain ⟨x, hx⟩ := hn
     use 2 * x ^ 2 + x + 2
     calc

@@ -1,5 +1,6 @@
 /- Copyright (c) Heather Macbeth, 2023.  All rights reserved. -/
-import Mathlib.Algebra.GroupPower.Order
+import Mathlib.Algebra.GroupWithZero.Basic
+import Mathlib.Algebra.Order.Monoid.Unbundled.Pow
 import Mathlib.Tactic.Positivity
 
 open Lean
@@ -16,11 +17,11 @@ macro_rules
 macro_rules
 | `(tactic| cancel_aux $a at $h) =>
   let h := h.raw.getId
-  `(tactic | replace $(mkIdent h):ident := lt_of_pow_lt_pow (n := $a) (by cancel_discharger) $(mkIdent h))
+  `(tactic | replace $(mkIdent h):ident := lt_of_pow_lt_pow_left' (n := $a) $(mkIdent h))
 macro_rules
 | `(tactic| cancel_aux $a at $h) =>
   let h := h.raw.getId
-  `(tactic | replace $(mkIdent h):ident := le_of_pow_le_pow (n := $a) (by cancel_discharger) (by cancel_discharger) $(mkIdent h))
+  `(tactic | replace $(mkIdent h):ident := le_of_pow_le_pow_left' (n := $a) (hn := by cancel_discharger) $(mkIdent h))
 macro_rules
 | `(tactic| cancel_aux $a at $h) =>
   let h := h.raw.getId
