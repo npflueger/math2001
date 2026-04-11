@@ -11,14 +11,14 @@ open Int
 
 example : ¬ (∀ x : ℝ, x ^ 2 ≥ x) := by
   intro h
-  have : 0.5 ^ 2 ≥ 0.5 := h 0.5
+  have : (0.5 : ℝ) ^ 2 ≥ 0.5 := h 0.5
   numbers at this
 
 
 example : ¬ 3 ∣ 13 := by
   intro H
   obtain ⟨k, hk⟩ := H
-  obtain h4 | h5 := le_or_succ_le k 4
+  obtain h4 | h5 := le_or_gt k 4
   · have h :=
     calc 13 = 3 * k := hk
       _ ≤ 3 * 4 := by rel [h4]
@@ -98,7 +98,7 @@ example {p : ℕ} (hp : 2 ≤ p)  (T : ℕ) (hTp : p < T ^ 2)
     Prime p := by
   apply prime_test hp
   intro m hm1 hmp
-  obtain hmT | hmT := lt_or_le m T
+  obtain hmT | hmT := lt_or_ge m T
   · apply H m hm1 hmT
   intro h_div
   obtain ⟨l, hl⟩ := h_div
