@@ -1,6 +1,9 @@
 /- Copyright (c) Heather Macbeth, 2022.  All rights reserved. -/
 import Library.Theory.ModEq.Defs
 import Mathlib.Tactic.GCongr.Core
+import Mathlib.Tactic.LinearCombination
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.Cases
 
 protected theorem Int.ModEq.refl (a : ℤ) : a ≡ a [ZMOD n] := ⟨0, by ring⟩
 
@@ -57,8 +60,8 @@ h.mul (Int.ModEq.refl _)
 @[gcongr]
 protected theorem Int.ModEq.pow (k : ℕ) (h : a ≡ b [ZMOD n]) : a ^ k ≡ b ^ k [ZMOD n] := by
   induction k
-  case zero => exact Int.ModEq.refl _
-  case succ k hk => exact Int.ModEq.mul hk h
+  case zero => simpa only [pow_zero] using (Int.ModEq.refl (1 : ℤ))
+  case succ k hk => simpa only [pow_succ] using Int.ModEq.mul hk h
 
 @[symm]
 protected theorem Int.ModEq.symm (h : a ≡ b [ZMOD n]) : b ≡ a [ZMOD n] := by

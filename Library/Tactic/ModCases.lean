@@ -37,7 +37,7 @@ The actual mathematical content of the proof is here.
   refine ⟨Nat.zero_le _, ?_, ?_⟩
   · rw [Int.toNat_lt nonneg]; exact Int.emod_lt_of_pos _ this
   · rw [Int.ModEq, Int.toNat_of_nonneg nonneg]
-    exact ⟨a / n, by linear_combination - a.emod_add_ediv n⟩
+    exact ⟨a / n, by linear_combination - a.emod_add_mul_ediv n⟩
 
 /--
 The end point is that once we have reduced to `∃ z, n ≤ z < n ∧ a ≡ z (mod n)`

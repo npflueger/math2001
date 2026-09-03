@@ -5,6 +5,7 @@ Authors: Heather Macbeth
 -/
 import Library.Tactic.Rel.Attr
 import Mathlib.Tactic.GCongr.Core
+import Lean.Elab.Tactic.SolveByElim
 
 /-! # Extension to the `rel` tactic for the relation `↔`
 

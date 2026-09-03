@@ -3,6 +3,7 @@ import Mathlib.Tactic.IntervalCases
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.LinearCombination
 import Mathlib.Tactic.Positivity
+import Mathlib.Tactic.Ring
 
 def Prime (p : ℕ) : Prop :=
   2 ≤ p ∧ ∀ m : ℕ, m ∣ p → m = 1 ∨ m = p
@@ -32,7 +33,7 @@ lemma better_prime_test {p : ℕ} (hp : 2 ≤ p)  (T : ℕ) (hTp : p < T ^ 2)
     linarith
     positivity
   · apply lt_of_mul_lt_mul_left (a := T)
-    calc T * l ≤ m * l := mul_le_mul_right' hmT l
+    calc T * l ≤ m * l := Nat.mul_le_mul_right l hmT
       _ < T ^ 2 := by linarith
       _ = T * T := by linarith
     positivity

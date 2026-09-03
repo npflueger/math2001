@@ -1,6 +1,7 @@
 /- Copyright (c) Heather Macbeth, 2023.  All rights reserved. -/
 import Library.Theory.ModEq.Defs
 import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
 
 open Lean
 open Meta Qq Mathlib.Meta.NormNum
@@ -29,7 +30,7 @@ theorem isInt_ModEq_false : (a b n : ℤ) → decide (0 < n) = true →
       replace hb := of_decide_eq_true hb
       replace hab := of_decide_eq_true hab
       rw [← Int.exists_lt_and_lt_iff_not_dvd _ hn]
-      cases' lt_or_gt_of_ne hab with hab hab
+      rcases lt_or_gt_of_ne hab with hab | hab
       · exact ⟨-1, by linarith, by linarith⟩
       · exact ⟨0, by linarith, by linarith⟩
 

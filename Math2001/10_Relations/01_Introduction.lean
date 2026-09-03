@@ -7,14 +7,14 @@ import Library.Tactic.ModEq
 math2001_init
 
 
-example : Reflexive ((·:ℕ) ∣ ·) := by
+example : Reflexive (fun x y : ℕ => x ∣ y) := by
   dsimp [Reflexive]
   intro x
   use 1
   ring
 
 
-example : ¬ Symmetric ((·:ℕ) ∣ ·) := by
+example : ¬ Symmetric (fun x y : ℕ => x ∣ y) := by
   dsimp [Symmetric]
   push_neg
   use 1, 2
@@ -28,7 +28,7 @@ example : ¬ Symmetric ((·:ℕ) ∣ ·) := by
     · numbers
 
 
-example : AntiSymmetric ((·:ℕ) ∣ ·) := by
+example : AntiSymmetric (fun x y : ℕ => x ∣ y) := by
   have H : ∀ {m n}, m = 0 → m ∣ n → m = n
   · intro m n h1 h2
     obtain ⟨k, hk⟩ := h2
@@ -48,7 +48,7 @@ example : AntiSymmetric ((·:ℕ) ∣ ·) := by
   · apply Nat.le_of_dvd hx h2
 
 
-example : Transitive ((·:ℕ) ∣ ·) := by
+example : Transitive (fun x y : ℕ => x ∣ y) := by
   dsimp [Transitive]
   intro a b c hab hbc
   obtain ⟨k, hk⟩ := hab
@@ -59,22 +59,22 @@ example : Transitive ((·:ℕ) ∣ ·) := by
     _ = a * (k * l) := by ring
 
 
-example : Reflexive ((·:ℝ) = ·) := by
+example : Reflexive (fun x y : ℝ => x = y) := by
   dsimp [Reflexive]
   intro x
   ring
 
-example : Symmetric ((·:ℝ) = ·) := by
+example : Symmetric (fun x y : ℝ => x = y) := by
   dsimp [Symmetric]
   intro x y h
   rw [h]
 
-example : AntiSymmetric ((·:ℝ) = ·) := by
+example : AntiSymmetric (fun x y : ℝ => x = y) := by
   dsimp [AntiSymmetric]
   intro x y h1 h2
   rw [h1]
 
-example : Transitive ((·:ℝ) = ·) := by
+example : Transitive (fun x y : ℝ => x = y) := by
   dsimp [Transitive]
   intro x y z h1 h2
   rw [h1, h2]
@@ -170,7 +170,7 @@ end
 /-! # Exercises -/
 
 
-example : ¬ Symmetric ((·:ℝ) < ·) := by
+example : ¬ Symmetric (fun x y : ℝ => x < y) := by
   sorry
 
 section
@@ -300,28 +300,28 @@ example : ¬ Transitive (· ∼ ·) := by
 end
 
 
-example : Reflexive ((· : Set ℕ) ⊆ ·) := by
+example : Reflexive (fun s t : Set ℕ => s ⊆ t) := by
   sorry
 
-example : ¬ Reflexive ((· : Set ℕ) ⊆ ·) := by
+example : ¬ Reflexive (fun s t : Set ℕ => s ⊆ t) := by
   sorry
 
-example : Symmetric ((· : Set ℕ) ⊆ ·) := by
+example : Symmetric (fun s t : Set ℕ => s ⊆ t) := by
   sorry
 
-example : ¬ Symmetric ((· : Set ℕ) ⊆ ·) := by
+example : ¬ Symmetric (fun s t : Set ℕ => s ⊆ t) := by
   sorry
 
-example : AntiSymmetric ((· : Set ℕ) ⊆ ·) := by
+example : AntiSymmetric (fun s t : Set ℕ => s ⊆ t) := by
   sorry
 
-example : ¬ AntiSymmetric ((· : Set ℕ) ⊆ ·) := by
+example : ¬ AntiSymmetric (fun s t : Set ℕ => s ⊆ t) := by
   sorry
 
-example : Transitive ((· : Set ℕ) ⊆ ·) := by
+example : Transitive (fun s t : Set ℕ => s ⊆ t) := by
   sorry
 
-example : ¬ Transitive ((· : Set ℕ) ⊆ ·) := by
+example : ¬ Transitive (fun s t : Set ℕ => s ⊆ t) := by
   sorry
 
 

@@ -54,7 +54,7 @@ decreasing_by
 
 theorem fmod_add_fdiv (n d : ℤ) : fmod n d + d * fdiv n d = n := by
   rw [fdiv, fmod]
-  split_ifs with h1 h2 h3 <;> push_neg at *
+  split_ifs with h1 h2 h3 <;> try push Not at *
   · -- case `n * d < 0`
     have IH := fmod_add_fdiv (n + d) d -- inductive hypothesis
     calc fmod (n + d) d + d * (fdiv (n + d) d - 1)
@@ -86,7 +86,7 @@ decreasing_by
 
 theorem fmod_nonneg_of_pos (n : ℤ) {d : ℤ} (hd : 0 < d) : 0 ≤ fmod n d := by
   rw [fmod]
-  split_ifs with h1 h2 h3 <;> push_neg at *
+  split_ifs with h1 h2 h3 <;> try push Not at *
   · -- case `n * d < 0`
     have IH := fmod_nonneg_of_pos (n + d) hd -- inductive hypothesis
     apply IH
@@ -112,7 +112,7 @@ decreasing_by
 
 theorem fmod_lt_of_pos (n : ℤ) {d : ℤ} (hd : 0 < d) : fmod n d < d := by
   rw [fmod]
-  split_ifs with h1 h2 h3 <;> push_neg at *
+  split_ifs with h1 h2 h3 <;> try push Not at *
   · -- case `n * d < 0`
     have IH := fmod_lt_of_pos (n + d) hd -- inductive hypothesis
     apply IH

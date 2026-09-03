@@ -154,7 +154,7 @@ example : Injective (fun (x:ℝ) ↦ x ^ 3) := by
       calc x2 ^ 3 = x1 ^ 3 := by rw [hx]
         _ = 0 ^ 3 := by rw [hx1]
         _ = 0 := by numbers
-      cancel 3 at hx2
+      have hx2 : x2 = 0 := by exact eq_zero_of_pow_eq_zero hx2
       calc x1 = 0 := by rw [hx1]
         _ = x2 := by rw [hx2]
     · -- case 2b: x1 ≠ 0

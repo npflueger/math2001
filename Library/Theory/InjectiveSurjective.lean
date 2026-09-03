@@ -17,16 +17,17 @@ theorem bijective_iff_exists_inverse (f : X → Y) :
     constructor
     · intro x1 x2 hx
       have H : (g ∘ f) x1 = (g ∘ f) x2 := by simp [hx]
-      simpa only [hgf] using H
+      rw [hgf] at H
+      simpa only [Function.comp_apply, id_eq] using H
     · intro y
       refine ⟨g y, ?_⟩
       simpa using congr_fun hfg y
 
-theorem surjective_of_intertwining {f : X → ℕ} {x0 : X} (h0 : f x0 = 0) {i : X → X}
+theorem surjective_of_intertwining {f : X → Nat} {x0 : X} (h0 : f x0 = 0) {i : X → X}
     (hi : ∀ x, f (i x) = f x + 1) :
     Function.Surjective f
   | 0 => ⟨x0, h0⟩
   | k + 1 => by
     obtain ⟨x, hx⟩ := surjective_of_intertwining h0 hi k
     refine ⟨i x, ?_⟩
-    simp [hi, hx]
+    simpa [hi, hx]

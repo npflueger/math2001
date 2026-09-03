@@ -1,10 +1,10 @@
 /- Copyright (c) Heather Macbeth, 2023.  All rights reserved. -/
 import Library.Basic
+import Math2001.«06_Induction».«06_Division_Algorithm»
 
 math2001_init
 
 namespace Euclid
-open Int
 
 
 @[decreasing] theorem lower_bound_fmod1 (a b : ℤ) (h1 : 0 < b) : -b < fmod a b := by
@@ -42,12 +42,12 @@ def gcd (a b : ℤ) : ℤ :=
 termination_by b
 
 
-#eval gcd (-21) 15 -- infoview displays `3`
+-- #eval gcd (-21) 15 -- infoview displays `3`
 
 
 theorem gcd_nonneg (a b : ℤ) : 0 ≤ gcd a b := by
   rw [gcd]
-  split_ifs with h1 h2 ha <;> push_neg at *
+  split_ifs with h1 h2 ha <;> try push Not at *
   · -- case `0 < b`
     have IH := gcd_nonneg b (fmod a b) -- inductive hypothesis
     apply IH
@@ -57,13 +57,13 @@ theorem gcd_nonneg (a b : ℤ) : 0 ≤ gcd a b := by
   · -- case `b = 0`, `0 ≤ a`
     apply ha
   · -- case `b = 0`, `a < 0`
-    addarith [ha]
+    exact Int.neg_nonneg.mpr (le_of_lt ha)
 termination_by b
 
 
 theorem gcd_dvd (a b : ℤ) : gcd a b ∣ b ∧ gcd a b ∣ a := by
   rw [gcd]
-  split_ifs with h1 h2 <;> push_neg at *
+  split_ifs with h1 h2 <;> try push Not at *
   · -- case `0 < b`
     have IH : _ ∧ _ := gcd_dvd b (fmod a b) -- inductive hypothesis
     obtain ⟨IH_right, IH_left⟩ := IH
@@ -98,7 +98,7 @@ termination_by b
 mutual
 theorem gcd_dvd_right (a b : ℤ) : gcd a b ∣ b := by
   rw [gcd]
-  split_ifs with h1 h2 <;> push_neg at *
+  split_ifs with h1 h2 <;> try push Not at *
   · -- case `0 < b`
     apply gcd_dvd_left b (fmod a b) -- inductive hypothesis
   · -- case `b < 0`
@@ -117,7 +117,7 @@ termination_by b
 
 theorem gcd_dvd_left (a b : ℤ) : gcd a b ∣ a := by
   rw [gcd]
-  split_ifs with h1 h2 <;> push_neg at *
+  split_ifs with h1 h2 <;> try push Not at *
   · -- case `0 < b`
     have IH1 := gcd_dvd_left b (fmod a b) -- inductive hypothesis
     have IH2 := gcd_dvd_right b (fmod a b) -- inductive hypothesis
@@ -178,13 +178,13 @@ termination_by b
 end
 
 
-#eval L (-21) 15 -- infoview displays `2`
-#eval R (-21) 15 -- infoview displays `3`
+-- #eval L (-21) 15 -- infoview displays `2`
+-- #eval R (-21) 15 -- infoview displays `3`
 
 
 theorem L_mul_add_R_mul (a b : ℤ) : L a b * a + R a b * b = gcd a b := by
   rw [R, L, gcd]
-  split_ifs with h1 h2 <;> push_neg at *
+  split_ifs with h1 h2 <;> try push Not at *
   · -- case `0 < b`
     have IH := L_mul_add_R_mul b (fmod a b) -- inductive hypothesis
     have H : fmod a b + b * fdiv a b = a := fmod_add_fdiv a b

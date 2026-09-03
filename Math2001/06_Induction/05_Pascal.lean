@@ -73,7 +73,7 @@ example (a b : ℕ) : (pascal a b : ℚ) = (a + b)! / (a ! * b !) := by
   have hb := factorial_pos b
   field_simp [ha, hb]
   norm_cast
-  calc pascal a b * (a ! * b !) = pascal a b * a ! * b ! := by ring
+  calc pascal a b * a ! * b ! = pascal a b * a ! * b ! := by ring
     _ = (a + b)! := by apply pascal_eq
 
 /-! # Exercises -/

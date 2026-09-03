@@ -7,6 +7,7 @@ import Mathlib.Tactic.Abel
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.NormNum
 import Mathlib.Tactic.Ring
+import Mathlib.Tactic.LinearCombination
 
 /-! # Addarith tactic
 
@@ -26,7 +27,7 @@ open Mathlib Tactic Abel
 
 def addarithDischarger : TacticM Unit := do
   try evalTactic (← `(tactic| simp (config := { decide := false }) only [one_mul, neg_mul])) catch _ => pure ()
-  abelNFTarget (← IO.mkRef {}) {}
+  try evalTactic (← `(tactic| abel_nf)) catch _ => pure ()
   try evalTactic (← `(tactic| push_cast (config := { decide := false }) [zsmul_eq_mul])) catch _ => pure ()
   try evalTactic (← `(tactic| norm_num1)) catch _ => pure ()
 

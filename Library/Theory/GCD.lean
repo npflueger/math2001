@@ -1,6 +1,8 @@
 /- Copyright (c) Heather Macbeth, 2023.  All rights reserved. -/
 import Mathlib.Tactic.LinearCombination
 import Library.Tactic.Induction
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.Push
 
 open Int
 
@@ -40,38 +42,54 @@ theorem gcd_nonneg (a b : ℤ) : 0 ≤ _root_.gcd a b := by
   · linarith
 termination_by b
 
-mutual
-theorem gcd_dvd_right (a b : ℤ) : _root_.gcd a b ∣ b := by
+/- The two divisibility statements are proved together so that the recursive call
+   does not need a mutually recursive theorem declaration. -/
+theorem gcd_dvd (a b : ℤ) : _root_.gcd a b ∣ b ∧ _root_.gcd a b ∣ a := by
   rw [_root_.gcd]
   split_ifs with h1 h2
-  · exact gcd_dvd_left b (fmod a b)
-  · exact gcd_dvd_left b (fmod a (-b))
-  · use 0
-    linarith
-  · use 0
-    linarith
+  · obtain ⟨hd_r, hd_b⟩ := gcd_dvd b (fmod a b)
+    constructor
+    · exact hd_b
+    · obtain ⟨k, hk⟩ := hd_r
+      obtain ⟨l, hl⟩ := hd_b
+      use k + l * fdiv a b
+      have H := Int.fmod_add_mul_fdiv a b
+      calc
+        a = fmod a b + b * fdiv a b := H.symm
+        _ = _root_.gcd b (fmod a b) * (k + l * fdiv a b) := by
+          rw [mul_add, ← hk, ← mul_assoc, ← hl]
+  · obtain ⟨hd_r, hd_b⟩ := gcd_dvd b (fmod a (-b))
+    constructor
+    · exact hd_b
+    · obtain ⟨k, hk⟩ := hd_r
+      obtain ⟨l, hl⟩ := hd_b
+      use k - l * fdiv a (-b)
+      have H := Int.fmod_add_mul_fdiv a (-b)
+      calc
+        a = fmod a (-b) + (-b) * fdiv a (-b) := H.symm
+        _ = _root_.gcd b (fmod a (-b)) * (k - l * fdiv a (-b)) := by
+          rw [mul_sub, ← hk, ← mul_assoc, ← hl]
+          ring
+  · constructor
+    · have hb : b = 0 := le_antisymm (le_of_not_gt h1) (le_of_not_gt h2)
+      subst b
+      exact ⟨0, by ring⟩
+    · have hb : b = 0 := le_antisymm (le_of_not_gt h1) (le_of_not_gt h2)
+      subst b
+      exact ⟨1, by ring⟩
+  · constructor
+    · have hb : b = 0 := le_antisymm (le_of_not_gt h1) (le_of_not_gt h2)
+      subst b
+      exact ⟨0, by ring⟩
+    · have hb : b = 0 := le_antisymm (le_of_not_gt h1) (le_of_not_gt h2)
+      subst b
+      exact ⟨-1, by ring⟩
 termination_by b
 
-theorem gcd_dvd_left (a b : ℤ) : _root_.gcd a b ∣ a := by
-  rw [_root_.gcd]
-  split_ifs with h1 h2
-  · obtain ⟨k, hk⟩ := gcd_dvd_left b (fmod a b)
-    obtain ⟨l, hl⟩ := gcd_dvd_right b (fmod a b)
-    have H : fmod a b + b * fdiv a b = a := fmod_add_fdiv a b
-    use l + k * fdiv a b
-    linear_combination fdiv a b * hk + hl - H
-  · obtain ⟨k, hk⟩ := gcd_dvd_left b (fmod a (-b))
-    obtain ⟨l, hl⟩ := gcd_dvd_right b (fmod a (-b))
-    have H := fmod_add_fdiv a (-b)
-    use l - k * fdiv a (-b)
-    linear_combination - fdiv a (-b) * hk + hl - H
-  · use 1
-    ring
-  · use -1
-    ring
-termination_by b
+theorem gcd_dvd_right (a b : ℤ) : _root_.gcd a b ∣ b := (gcd_dvd a b).1
 
-end
+theorem gcd_dvd_left (a b : ℤ) : _root_.gcd a b ∣ a := (gcd_dvd a b).2
+
 
 namespace Bezout
 mutual
@@ -100,12 +118,12 @@ end
 
 theorem L_mul_add_R_mul (a b : ℤ) : L a b * a + R a b * b = _root_.gcd a b := by
   rw [R, L, _root_.gcd]
-  split_ifs with h1 h2 <;> push_neg at *
+  split_ifs with h1 h2 <;> try push Not at *
   · have IH := L_mul_add_R_mul b (fmod a b)
-    have h : fmod a b + b * fdiv a b = a := fmod_add_fdiv a b
+    have h : fmod a b + b * fdiv a b = a := fmod_add_mul_fdiv a b
     linear_combination IH - R b (fmod a b) * h
   · have IH := L_mul_add_R_mul b (fmod a (-b))
-    have h : fmod a (-b) + (-b) * fdiv a (-b) = a := fmod_add_fdiv a (-b)
+    have h : fmod a (-b) + (-b) * fdiv a (-b) = a := fmod_add_mul_fdiv a (-b)
     linear_combination IH - R b (fmod a (-b)) * h
   · ring
   · ring

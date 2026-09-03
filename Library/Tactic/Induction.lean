@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Heather Macbeth
 -/
 import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Cases
+import Lean.Elab.Tactic.SolveByElim
 
 /-! # Specialized induction tactics
 
@@ -143,4 +145,3 @@ macro_rules
   `(tactic| simp_wf ;
       (try simp only [Int.sizeOf_lt_sizeOf_iff, ←sq_lt_sq,  Nat.succ_eq_add_one]);
       nlinarith)
-
