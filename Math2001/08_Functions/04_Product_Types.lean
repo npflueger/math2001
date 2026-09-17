@@ -23,7 +23,7 @@ example : Injective q := by
 
 example : ¬ Surjective q := by
   dsimp [Surjective]
-  push_neg
+  push Not
   use (0, 1)
   intro m hm
   dsimp [q] at hm
@@ -49,7 +49,7 @@ example : Bijective (fun ((m, n) : ℝ × ℝ) ↦ (m + n, m - n)) := by
 
 example : ¬ Bijective (fun ((m, n) : ℤ × ℤ) ↦ (m + n, m - n)) := by
   dsimp [Bijective, Injective, Surjective]
-  push_neg
+  push Not
   right
   use (0, 1)
   intro (m, n) h
@@ -74,7 +74,7 @@ example : Injective (fun ((x, y) : ℝ × ℝ) ↦ (x + y, x - y, y)) := by
 
 example : ¬ Injective (fun ((x, y) : ℝ × ℝ) ↦ x + y) := by
   dsimp [Injective]
-  push_neg
+  push Not
   use (0, 0), (1, -1)
   dsimp
   constructor
@@ -90,7 +90,7 @@ example : Surjective (fun ((x, y) : ℝ × ℝ) ↦ x + y) := by
 
 example : ¬ Injective (fun ((m, n) : ℤ × ℤ) ↦ 5 * m + 8 * n) := by
   dsimp [Injective]
-  push_neg
+  push Not
   use (0, 0), (8, -5)
   constructor
   · numbers
@@ -108,7 +108,7 @@ example : ¬ Injective (fun ((m, n) : ℤ × ℤ) ↦ 5 * m + 10 * n) := by
 
 example : ¬ Surjective (fun ((m, n) : ℤ × ℤ) ↦ 5 * m + 10 * n) := by
   dsimp [Surjective]
-  push_neg
+  push Not
   use 1
   intro (m, n) h
   dsimp at h

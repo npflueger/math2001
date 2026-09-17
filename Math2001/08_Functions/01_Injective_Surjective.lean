@@ -41,7 +41,7 @@ example : Injective q := by
 
 example : ¬ Injective (fun x : ℝ ↦ x ^ 2) := by
   dsimp [Injective]
-  push_neg
+  push Not
   use -1, 1
   constructor
   · numbers
@@ -60,7 +60,7 @@ example : Surjective s := by
 
 example : ¬ Surjective (fun x : ℝ ↦ x ^ 2) := by
   dsimp [Surjective]
-  push_neg
+  push Not
   use -1
   intro x
   apply ne_of_gt
@@ -85,7 +85,7 @@ def f : Musketeer → Musketeer
 
 example : ¬ Injective f := by
   dsimp [Injective]
-  push_neg
+  push Not
   use athos, porthos
   dsimp [f] -- optional
   exhaust
@@ -93,7 +93,7 @@ example : ¬ Injective f := by
 
 example : ¬ Surjective f := by
   dsimp [Surjective]
-  push_neg
+  push Not
   use porthos
   intro a
   cases a
@@ -105,7 +105,7 @@ example : ¬ Surjective f := by
 -- better (more automated) version of the previous proof
 example : ¬ Surjective f := by
   dsimp [Surjective]
-  push_neg
+  push Not
   use porthos
   intro a
   cases a <;> exhaust

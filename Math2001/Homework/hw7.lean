@@ -20,7 +20,7 @@ theorem problem1 (P Q : Prop) : ¬ (P → Q) ↔ (P ∧ ¬ Q) := by
 
 @[autogradedProof 3]
 theorem problem2 : ¬ (∀ x : ℚ, 2 * x ^ 2 ≥ x) := by
-  push_neg
+  push Not
   sorry
 
 @[autogradedProof 4]
@@ -34,7 +34,7 @@ theorem problem4 (n : ℕ) :
 
 @[autogradedProof 5]
 theorem problem5 {a : ℝ} (ha : -1 ≤ a) : ¬ ∃ n : ℕ, (1 + a) ^ n < 1 + n * a := by
-  push_neg
+  push Not
   sorry
 
 @[autogradedProof 4]

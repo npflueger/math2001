@@ -30,4 +30,4 @@ theorem surjective_of_intertwining {f : X → Nat} {x0 : X} (h0 : f x0 = 0) {i :
   | k + 1 => by
     obtain ⟨x, hx⟩ := surjective_of_intertwining h0 hi k
     refine ⟨i x, ?_⟩
-    simpa [hi, hx]
+    simp [hi, hx]

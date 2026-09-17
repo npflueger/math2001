@@ -59,7 +59,7 @@ lemma not_prime {p : ℕ} (k l : ℕ) (hk1 : k ≠ 1) (hkp : k ≠ p) (hkl : p =
 theorem exists_factor_of_not_prime {p : ℕ} (hp : ¬ Prime p) (hp2 : 2 ≤ p) :
     ∃ m, 2 ≤ m ∧ m < p ∧ m ∣ p := by
   have H : ¬ _ := hp ∘ prime_test hp2
-  push_neg at H
+  push Not at H
   exact H
 
 theorem exists_prime_factor {n : ℕ} (hn2 : 2 ≤ n) : ∃ p : ℕ, Prime p ∧ p ∣ n := by

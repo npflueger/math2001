@@ -28,8 +28,8 @@ def Nat.twoStepInduction' {P : ℕ → Sort u} (base_case_0 : P 0) (base_case_1 
 @[elab_as_elim]
 def Nat.twoStepLeInduction {s : ℕ} {P : ∀ (n : ℕ), s ≤ n → Sort u} 
     (base_case_0 : P s (le_refl s)) (base_case_1 : P (s + 1) (Nat.le_succ s))
-    (inductive_step : ∀ (k : ℕ) (hk : s ≤ k), (IH0 : P k hk) → (IH1 : P (k + 1) (le_step hk))
-        → P (k + 1 + 1) (le_step (le_step hk)))
+    (inductive_step : ∀ (k : ℕ) (hk : s ≤ k), (IH0 : P k hk) → (IH1 : P (k + 1) (Nat.le_succ_of_le hk))
+        → P (k + 1 + 1) (Nat.le_succ_of_le (Nat.le_succ_of_le hk)))
       (a : ℕ) (ha : s ≤ a) :
     P a ha := by
   have key : ∀ m : ℕ, P (s + m) (Nat.le_add_right _ _) := by

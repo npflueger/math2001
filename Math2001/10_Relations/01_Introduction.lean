@@ -16,7 +16,7 @@ example : Reflexive (fun x y : ℕ => x ∣ y) := by
 
 example : ¬ Symmetric (fun x y : ℕ => x ∣ y) := by
   dsimp [Symmetric]
-  push_neg
+  push Not
   use 1, 2
   constructor
   · use 2
@@ -97,7 +97,7 @@ example : Symmetric (· ∼ ·) := by
 
 example : ¬ AntiSymmetric (· ∼ ·) := by
   dsimp [AntiSymmetric]
-  push_neg
+  push Not
   use 1, 1.1
   constructor
   · numbers
@@ -107,7 +107,7 @@ example : ¬ AntiSymmetric (· ∼ ·) := by
 
 example : ¬ Transitive (· ∼ ·) := by
   dsimp [Transitive]
-  push_neg
+  push Not
   use 1, 1.9, 2.5
   constructor
   · numbers
@@ -144,13 +144,13 @@ local infix:50 " ≺ " => r
 
 example : ¬ Reflexive (· ≺ ·) := by
   dsimp [Reflexive]
-  push_neg
+  push Not
   use rock
   exhaust
 
 example : ¬ Symmetric (· ≺ ·) := by
   dsimp [Symmetric]
-  push_neg
+  push Not
   use rock, paper
   exhaust
 
@@ -161,7 +161,7 @@ example : AntiSymmetric (· ≺ ·) := by
 
 example : ¬ Transitive (· ≺ ·) := by
   dsimp [Transitive]
-  push_neg
+  push Not
   use rock, paper, scissors
   exhaust
 

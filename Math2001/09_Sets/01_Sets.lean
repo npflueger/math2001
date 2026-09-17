@@ -36,7 +36,7 @@ example : {a : ℕ | 4 ∣ a} ⊆ {b : ℕ | 2 ∣ b} := by
 
 example : {x : ℝ | 0 ≤ x ^ 2} ⊈ {t : ℝ | 0 ≤ t} := by
   dsimp [Set.subset_def]
-  push_neg
+  push Not
   use -3
   constructor
   · numbers
@@ -62,7 +62,7 @@ example : {x : ℤ | Int.Odd x} = {a : ℤ | ∃ k, a = 2 * k - 1} := by
 example : {a : ℕ | 4 ∣ a} ≠ {b : ℕ | 2 ∣ b} := by
   ext
   dsimp
-  push_neg
+  push Not
   use 6
   right
   constructor

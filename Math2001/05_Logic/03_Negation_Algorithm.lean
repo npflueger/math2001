@@ -26,7 +26,7 @@ example :
     ¬(∀ m : ℤ, m ≠ 2 → ∃ n : ℤ, n ^ 2 = m) ↔ ∃ m : ℤ, m ≠ 2 ∧ ∀ n : ℤ, n ^ 2 ≠ m :=
   calc ¬(∀ m : ℤ, m ≠ 2 → ∃ n : ℤ, n ^ 2 = m)
       ↔ ∃ m : ℤ, ¬(m ≠ 2 → ∃ n : ℤ, n ^ 2 = m) := by rel [not_forall]
-    _ ↔ ∃ m : ℤ, m ≠ 2 ∧ ¬(∃ n : ℤ, n ^ 2 = m) := by rel [_root_.not_imp]
+    _ ↔ ∃ m : ℤ, m ≠ 2 ∧ ¬(∃ n : ℤ, n ^ 2 = m) := by rel [Classical.not_imp]
     _ ↔ ∃ m : ℤ, m ≠ 2 ∧ ∀ n : ℤ, n ^ 2 ≠ m := by rel [not_exists]
 
 
@@ -49,7 +49,7 @@ example : ¬(∀ n : ℤ, ∃ m : ℤ, n ^ 2 < m ∧ m < (n + 1) ^ 2)
 
 
 example : ¬ (∃ n : ℕ, n ^ 2 = 2) := by
-  push_neg
+  push Not
   intro n
   have hn := le_or_succ_le n 1
   obtain hn | hn := hn
@@ -90,21 +90,21 @@ example : ¬ (∃ m : ℤ, ∀ n : ℤ, m = n + 5) ↔ ∀ m : ℤ, ∃ n : ℤ,
 
 
 example : ¬ (∀ x : ℝ, x ^ 2 ≥ x) := by
-  push_neg
+  push Not
   sorry
 
 example : ¬ (∃ t : ℝ, t ≤ 4 ∧ t ≥ 5) := by
-  push_neg
+  push Not
   sorry
 
 example : ¬ Int.Even 7 := by
   dsimp [Int.Even]
-  push_neg
+  push Not
   sorry
 
 example {p : ℕ} (k : ℕ) (hk1 : k ≠ 1) (hkp : k ≠ p) (hk : k ∣ p) : ¬ Prime p := by
   dsimp [Prime]
-  push_neg
+  push Not
   sorry
 
 example : ¬ ∃ a : ℤ, ∀ n : ℤ, 2 * a ^ 3 ≥ n * a + 7 := by

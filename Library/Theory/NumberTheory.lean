@@ -20,7 +20,7 @@ theorem Nat.Odd.pow {a : ℕ} (ha : Nat.Odd a) (n : ℕ) : Nat.Odd (a ^ n) := by
   induction n with
   | zero =>
     use 0
-    change a ^ 0 = _
+
     ring
   | succ k IH =>
     obtain ⟨x, hx⟩ := ha

@@ -31,10 +31,10 @@ def a (t : ℝ) : ℝ := t ^ 3 - t
 
 example : ¬ Bijective a := by
   dsimp [Bijective]
-  push_neg
+  push Not
   left
   dsimp [Injective]
-  push_neg
+  push Not
   use 0, 1
   constructor
   · calc a 0 = 0 ^ 3 - 0 := by rfl
@@ -64,10 +64,10 @@ def f : Celestial → Subatomic
 
 example : ¬ Bijective f := by
   dsimp [Bijective]
-  push_neg
+  push Not
   right
   dsimp [Surjective]
-  push_neg
+  push Not
   use neutron
   intro x
   cases x <;> exhaust
@@ -132,7 +132,7 @@ example : ∀ f : Celestial → Celestial, Injective f → Bijective f := by
 
 
 example : ¬ ∀ f : ℕ → ℕ, Injective f → Bijective f := by
-  push_neg
+  push Not
   use fun n ↦ n + 1
   constructor
   · -- the function is injective
@@ -140,11 +140,11 @@ example : ¬ ∀ f : ℕ → ℕ, Injective f → Bijective f := by
     addarith [hn]
   · -- the function is not bijective
     dsimp [Bijective]
-    push_neg
+    push Not
     right
     -- specifically, it's not surjective
     dsimp [Surjective]
-    push_neg
+    push Not
     use 0
     intro n
     apply ne_of_gt

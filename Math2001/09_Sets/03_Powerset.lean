@@ -31,7 +31,7 @@ def p (s : Set ℕ) : Set ℕ := {n : ℕ | n + 1 ∈ s}
 
 example : ¬ Injective p := by
   dsimp [Injective, p]
-  push_neg
+  push Not
   use {0}, ∅
   dsimp
   constructor
@@ -41,7 +41,7 @@ example : ¬ Injective p := by
     apply ne_of_gt
     extra
   · ext
-    push_neg
+    push Not
     use 0
     dsimp
     exhaust

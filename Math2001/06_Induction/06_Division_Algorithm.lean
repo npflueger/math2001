@@ -16,7 +16,7 @@ def fmod (n d : ℤ) : ℤ :=
     n
 termination_by 2 * n - d
 decreasing_by
-  all_goals simp_wf
+
   · rw [Int.sizeOf_lt_sizeOf_iff, abs_lt_abs_iff]
     rcases mul_neg_iff.mp ‹n * d < 0› with ⟨hn, hd⟩ | ⟨hn, hd⟩
     · left; constructor <;> omega
@@ -37,7 +37,7 @@ def fdiv (n d : ℤ) : ℤ :=
     0
 termination_by 2 * n - d
 decreasing_by
-  all_goals simp_wf
+
   · rw [Int.sizeOf_lt_sizeOf_iff, abs_lt_abs_iff]
     rcases mul_neg_iff.mp ‹n * d < 0› with ⟨hn, hd⟩ | ⟨hn, hd⟩
     · left; constructor <;> omega
@@ -73,7 +73,7 @@ theorem fmod_add_fdiv (n d : ℤ) : fmod n d + d * fdiv n d = n := by
     ring
 termination_by 2 * n - d
 decreasing_by
-  all_goals simp_wf
+
   · rw [Int.sizeOf_lt_sizeOf_iff, abs_lt_abs_iff]
     rcases mul_neg_iff.mp ‹n * d < 0› with ⟨hn, hd'⟩ | ⟨hn, hd'⟩
     · left; constructor <;> omega
@@ -99,7 +99,7 @@ theorem fmod_nonneg_of_pos (n : ℤ) {d : ℤ} (hd : 0 < d) : 0 ≤ fmod n d := 
     cancel d at h1
 termination_by 2 * n - d
 decreasing_by
-  all_goals simp_wf
+
   · rw [Int.sizeOf_lt_sizeOf_iff, abs_lt_abs_iff]
     rcases mul_neg_iff.mp ‹n * d < 0› with ⟨hn, hd'⟩ | ⟨hn, hd'⟩
     · left; constructor <;> omega
@@ -131,7 +131,7 @@ theorem fmod_lt_of_pos (n : ℤ) {d : ℤ} (hd : 0 < d) : fmod n d < d := by
     · apply h3
 termination_by 2 * n - d
 decreasing_by
-  all_goals simp_wf
+
   · rw [Int.sizeOf_lt_sizeOf_iff, abs_lt_abs_iff]
     rcases mul_neg_iff.mp ‹n * d < 0› with ⟨hn, hd'⟩ | ⟨hn, hd'⟩
     · left; constructor <;> omega
