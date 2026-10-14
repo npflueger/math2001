@@ -4,4 +4,4 @@ This repository contains the Lean code for the book [The Mechanics of Proof](htt
 
 The Lean files corresponding to each chapter of the book are in the folder [`Math2001`](https://github.com/hrmacbeth/math2001/tree/main/Math2001).
 
-This fork has updated the original repository to Lean v4.33.0, but has kept changes as minimal as possible.
+This fork has updated the original repository to Lean v4.35.0, but has kept changes as minimal as possible.

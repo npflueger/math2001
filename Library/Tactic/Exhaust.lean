@@ -1,5 +1,4 @@
 /- Copyright (c) Heather Macbeth, 2023.  All rights reserved. -/
-import Duper.Tactic
 import Mathlib.Tactic.Tauto
 
 /-! # `exhaust` tactic
