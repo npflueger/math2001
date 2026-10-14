@@ -16,6 +16,7 @@ import Library.Theory.NumberTheory
 import Library.Theory.Parity
 import Library.Theory.ParityModular
 import Library.Theory.Prime
+import Library.Theory.Relations
 import Library.Tactic.Addarith
 import Library.Tactic.Cancel
 import Library.Tactic.Exhaust

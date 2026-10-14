@@ -11,6 +11,7 @@ import Library.Config.Use
 import Library.Theory.Comparison
 import Library.Theory.Parity
 import Library.Theory.Prime
+import Library.Theory.Relations
 import Library.Tactic.Addarith
 import Library.Tactic.Cancel
 import Library.Tactic.Extra.Basic
