@@ -44,7 +44,6 @@ def Nat.twoStepLeInduction {s : ℕ} {P : ∀ (n : ℕ), s ≤ n → Sort u}
 
 open Lean Parser Category Elab Tactic
 
-open private getElimNameInfo generalizeTargets generalizeVars from Lean.Elab.Tactic.Induction in
 syntax (name := BasicInductionSyntax) "simple_induction " (Parser.Tactic.elimTarget,+) (" with " (colGt binderIdent)+)? : tactic
 
 macro_rules
@@ -52,7 +51,6 @@ macro_rules
     `(tactic| induction' $tgts,* using Nat.induction $[with $withArg*]? <;>
       push_cast (config := { decide := false }))
 
-open private getElimNameInfo generalizeTargets generalizeVars from Lean.Elab.Tactic.Induction in
 syntax (name := StartingPointInductionSyntax) "induction_from_starting_point " (Parser.Tactic.elimTarget,+) (" with " (colGt binderIdent)+)? : tactic
 
 macro_rules
@@ -60,7 +58,6 @@ macro_rules
     `(tactic| induction' $tgts,* using Nat.le_induction $[with $withArg*]? <;>
       push_cast (config := { decide := false }))
 
-open private getElimNameInfo generalizeTargets generalizeVars from Lean.Elab.Tactic.Induction in
 syntax (name := TwoStepInductionSyntax) "two_step_induction " (Parser.Tactic.elimTarget,+) (" with " (colGt binderIdent)+)? : tactic
 
 macro_rules
@@ -68,7 +65,6 @@ macro_rules
     `(tactic| induction' $tgts,* using Nat.twoStepInduction' $[with $withArg*]? <;>
       push_cast (config := { decide := false }) at *)
 
-open private getElimNameInfo generalizeTargets generalizeVars from Lean.Elab.Tactic.Induction in
 syntax (name := TwoStepStartingPointInductionSyntax) "two_step_induction_from_starting_point " (Parser.Tactic.elimTarget,+) (" with " (colGt binderIdent)+)? : tactic
 
 macro_rules

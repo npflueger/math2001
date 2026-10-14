@@ -79,5 +79,6 @@ open Tactic
 
 /-- Elaborator for `numbers` conv tactic. -/
 @[tactic numbersConv] def elabNormNum1Conv : Tactic := fun _ ↦ withMainContext do
-  let ctx ← getSimpContext mkNullNode mkNullNode true
-  Conv.applySimpResult (← deriveSimp ctx (← instantiateMVars (← Conv.getLhs)) (useSimp := false))
+  let (ctx, simprocs) ← getSimpContext mkNullNode mkNullNode true
+  Conv.applySimpResult
+    (← deriveSimp ctx simprocs (useSimp := false) (← instantiateMVars (← Conv.getLhs)))
